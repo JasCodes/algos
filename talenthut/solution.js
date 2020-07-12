@@ -3,13 +3,9 @@ For random string s=‘zxzzzay’ and consecutive numbers as k=2 should return z
 Other example s=axxyyw & k=1 -> xyxywa
 */
 
-function getSortedKeys(obj) {
-    var keys = keys = Object.keys(obj);
-    return keys.sort(function (a, b) { return obj[b] - obj[a] });
-}
-function isMaxConsective(result, consectiveNumbersAllowed, currentHashmapKey) {
-    let lastK = result.slice(-consectiveNumbersAllowed)
-    if (lastK.length === consectiveNumbersAllowed) {
+function isMaxConsecutive(result, consecutiveNumbersAllowed, currentHashmapKey) {
+    let lastK = result.slice(-consecutiveNumbersAllowed)
+    if (lastK.length === consecutiveNumbersAllowed) {
         return lastK.split("").every(v => v === currentHashmapKey)
     }
     return false
@@ -17,7 +13,7 @@ function isMaxConsective(result, consectiveNumbersAllowed, currentHashmapKey) {
 
 function solution(s, k) {
     const inputString = s
-    const consectiveNumbersAllowed = k
+    const consecutiveNumbersAllowed = k
     // Check edge case of empty string
     if (inputString === "") {
         return 'Empty String'
@@ -33,11 +29,13 @@ function solution(s, k) {
     let result = ''
 
     // Iterate until hashmap becomes empty
-    while (Object.keys(hashmap).length != 0) {
+    while (Object.keys(hashmap).length !== 0) {
         // Fuction getSorted returns keys based on largest value to smallest
-        const sortedKeys = getSortedKeys(hashmap)
+        // const sortedKeys = getSortedKeys(hashmap)
+        const sortedKeys = Object.keys(hashmap).sort((a, b) => hashmap[b] - hashmap[a])
+
         let currentHashmapKey = sortedKeys[0]
-        if (isMaxConsective(result, consectiveNumbersAllowed, currentHashmapKey)) {
+        if (isMaxConsecutive(result, consecutiveNumbersAllowed, currentHashmapKey)) {
             // if we have only one key left in hashmap and max consective is reached;
             // that means no solution is possible
             if (sortedKeys.length === 1) {

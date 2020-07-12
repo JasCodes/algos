@@ -10,8 +10,6 @@ function getSortedKeys(obj) {
 }
 function isMaxConsective(ret, k, indexKey) {
     let lastK = ret.slice(-k)
-    // console.log('last', lastK);
-
     if (lastK.length === k) {
         return allEqual(lastK.split(""), indexKey)
     }
